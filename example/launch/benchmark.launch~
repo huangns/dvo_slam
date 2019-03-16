@@ -3,7 +3,7 @@
   <!--arg name="dataset" default="$(env PWD)" /-->
 
  <!--arg name="dataset" default="/home/h/Codes/Kintinuous_Planar/datasets/rgbd_dataset_freiburg1_xyz" /-->
- <arg name="dataset" default="/home/h/HCode/datasets/rgbd_dataset_freiburg1_xyz" />
+ <arg name="dataset" default="/home/h/Codes/Kintinuous_Planar/datasets/rgbd_dataset_freiburg1_room" />
 <!--arg name="dataset" default="/home/h/Codes/Kintinuous_Planar/datasets/living_room_traj2n_frei_png" /-->  
 <!--arg name="dataset" default="/home/h/Codes/Kintinuous_Planar/datasets/rgbd_dataset_freiburg1_plant" /-->
 <!--arg name="dataset" default="/home/h/Codes/Kintinuous_Planar/datasets/rgbd_dataset_freiburg1_floor" /-->

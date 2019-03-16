@@ -1,14 +1,16 @@
-# How to build DVO SLAM for Linux Mint Rosa 17.3 (based on Ubuntu Trusty 14.04 LTS)
+# How to build DVO SLAM for ubuntu 14.04 + ROS Indigo
 
-The build has been tested on Linux Mint Rosa 17.3 (Ubuntu Trusty 14.04) + ROS Indigo. 
-It also worked on Ubuntu Xenial 16.04 + ROS Kinetic. 
+The build has been tested on ubuntu 14.04 + ROS Indigo
 The following steps assume ROS Indigo. 
 
 ## Install ROS Indigo
 
 ```
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
+//In China
+//network address: http://wiki.ros.org/indigo/Installation/Ubuntu
+sudo sh -c '. /etc/lsb-release && echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ $DISTRIB_CODENAME main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116
+
 sudo apt-get update
 sudo apt-get install ros-indigo-desktop-full
 sudo rosdep init
@@ -25,6 +27,7 @@ This version uses catkin to build the code, which makes things much easier.
 The Catkin workspace is organized as follows: 
 
 ```
+
 dvo_slam  (Catkin workspace root)
     src 
         dvo_core
@@ -92,21 +95,19 @@ We have to build g2o into static libraries
 and build DVO SLAM also as static libraries to avoid some weird undefined reference to g2o::csparse_extension. It could be possible to build as shared libraries (by default) but somehow it does not work on my machine.
 
 ## Building DVO SLAM
-Go back to Catkin workspace's root folder and execute
 
-```
+#Prepare Workspace
+
+source /opt/ros/indigo/setup.bash
+mkdir -p ~/dvoslam_catkin_ws/src
+
+#get dvoslam
+git clone dvoslam  jade-devel branch
+cd ~/dvoslam/src
+catkin_init_workspace
+cd ~/dvoslam/
 catkin_make -DCMAKE_BUILD_TYPE=Release
 ```
-
-to build all packages. You can also build each package separately by 
-
-```
-catkin_make --pkg dvo_core -DCMAKE_BUILD_TYPE=Release
-catkin_make --pkg dvo_ros -DCMAKE_BUILD_TYPE=Release
-catkin_make --pkg dvo_slam -DCMAKE_BUILD_TYPE=Release
-catkin make --pkg dvo_benchmark -DCMAKE_BUILD_TYPE=Release
-```
-
 ## How to run
 
 ```
@@ -118,6 +119,7 @@ This will make ROS able to find our newly built packages.
 Now we can navigate to example folder and execute
 
 ```
+cd ~/dvoslam/example/
 roslaunch launch/benchmark.launch dataset:=<RGBD dataset folder>
 ```
 

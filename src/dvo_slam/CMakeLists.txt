@@ -8,6 +8,9 @@ LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake_modules")
 
 find_package(catkin REQUIRED COMPONENTS roscpp dynamic_reconfigure dvo_core dvo_ros sensor_msgs image_transport message_filters cv_bridge visualization_msgs interactive_markers)
 find_package(cmake_modules REQUIRED)
+
+
+SET(G2O_DIR /usr/local/dvoslam/)
 find_package(G2O REQUIRED)
 find_package(SuiteSparse REQUIRED)
 find_package(OpenGL)
@@ -31,8 +34,11 @@ include_directories(
   "include"
   ${dvo_slam_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
-  ${G2O_INCLUDE_DIR}
+#  ${G2O_INCLUDE_DIR}
   ${CSPARSE_INCLUDE_DIR}
+"/usr/local/dvoslam/include/sophus"
+"/usr/local/dvoslam/include"
+"/usr/local/dvoslam/include/g2o"
 )
 
 # messages
@@ -68,6 +74,13 @@ add_library(${PROJECT_NAME}
 
 message("G2O lib: ${G2O_CORE_LIBRARY}")
 
+#SET(G2O_LIBS g2o_cli g2o_ext_freeglut_minimal g2o_simulator g2o_solver_slam2d_linear 
+ #   g2o_types_icp g2o_types_slam2d g2o_types_sba g2o_types_slam3d g2o_core g2o_interface 
+  #  g2o_solver_csparse g2o_solver_structure_only g2o_csparse_extension g2o_opengl_helper g2o_solver_dense 
+   # g2o_stuff g2o_types_sclam2d g2o_parser g2o_solver_pcg g2o_types_data g2o_types_sim3 cxsparse )
+
+
+
 target_link_libraries(${PROJECT_NAME}
   #${G2O_CORE_LIBRARY}
   #${G2O_SOLVER_DENSE}
@@ -77,16 +90,25 @@ target_link_libraries(${PROJECT_NAME}
   #${G2O_TYPES_SLAM3D}
 
   ${catkin_LIBRARIES}
-
-g2o_solver_dense
-g2o_solver_csparse
-g2o_csparse_extension
+#g2o_solver_dense
+#g2o_solver_csparse
+#g2o_csparse_extension
 cxsparse
-g2o_types_slam3d
-g2o_opengl_helper
-g2o_stuff
-g2o_core
+#g2o_types_slam3d
+#g2o_opengl_helper
+#g2o_stuff
+#g2o_core
+#${G2O_LIBS}
 
+
+
+"/usr/local/dvoslam/lib/libg2o_solver_dense.a"
+"/usr/local/dvoslam/lib/libg2o_solver_csparse.a"
+"/usr/local/dvoslam/lib/libg2o_types_slam3d.a"
+"/usr/local/dvoslam/lib/libg2o_opengl_helper.a"
+"/usr/local/dvoslam/lib/libg2o_csparse_extension.a"
+"/usr/local/dvoslam/lib/libg2o_stuff.a"
+"/usr/local/dvoslam/lib/libg2o_core.a"
 ${OPENGL_LIBRARIES}
 )
 

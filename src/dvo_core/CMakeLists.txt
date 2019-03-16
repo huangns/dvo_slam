@@ -6,8 +6,8 @@ set(BUILD_SHARED_LIBS OFF)
 
 find_package(catkin REQUIRED)
 find_package(cmake_modules REQUIRED)
-find_package(Eigen3 REQUIRED)
-find_package(Sophus REQUIRED)
+#find_package(Eigen3 REQUIRED)
+#find_package(Sophus REQUIRED)
 find_package(Boost REQUIRED COMPONENTS thread)
 find_package(OpenCV REQUIRED)
 find_package(TBB REQUIRED)
@@ -23,12 +23,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse -msse2 -msse3 -msse4 -ftree-vector
 
 include_directories(
   "include"
-  ${sophus_INCLUDE_DIRS}
+  #${sophus_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
+"/usr/include/eigen3"
+"/usr/local/dvoslam/include/sophus"
+"/usr/local/dvoslam/include"
 )
 
 add_library(dvo_core 
